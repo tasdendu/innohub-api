@@ -1,24 +1,39 @@
-# README
+**Command line instructions**
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+You can also upload existing files from your computer using the instructions below.
 
-Things you may want to cover:
 
-* Ruby version
+**Git global setup**
+```
+git config --global user.name "Tashi Dendup"
+git config --global user.email "tashi.dendup@dcpl.bt"
+```
 
-* System dependencies
+**Create a new repository**
+```
+git clone git@gitlab.dcpl.bt:dcpl/undp-api.git
+cd undp-api
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+```
 
-* Configuration
+**Push an existing folder**
+```
+cd existing_folder
+git init
+git remote add origin git@gitlab.dcpl.bt:dcpl/undp-api.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**Push an existing Git repository**
+```
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin git@gitlab.dcpl.bt:dcpl/undp-api.git
+git push -u origin --all
+git push -u origin --tags
+```
