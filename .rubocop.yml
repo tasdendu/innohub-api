@@ -1,0 +1,48 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 3.1.2
+  NewCops: enable
+  Exclude:
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+    - 'bin/*'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  AllowedMethods:
+    - configure
+    - change
+
+Metrics/AbcSize:
+  AllowedMethods:
+    - change
+
+Metrics/MethodLength:
+  AllowedMethods:
+    - change
+
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  AllowedMethods: ['update_column', 'update_attribute', 'update_all', 'update_columns']
+
+Metrics/BlockNesting:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
