@@ -46,3 +46,9 @@ Metrics/BlockNesting:
 
 RSpec/NamedSubject:
   Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false

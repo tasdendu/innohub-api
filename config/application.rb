@@ -25,5 +25,37 @@ module NewlinApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.time_zone = 'Asia/Dhaka'
+
+    # Enabling devise to render json response.
+    config.to_prepare do
+      Devise::Mailer.layout 'mailer'
+      DeviseController.respond_to :json
+    end
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore,
+                          key: :_undp_key,
+                          httponly: true,
+                          secure: Rails.env.production?,
+                          expire_after: 7.days,
+                          domain: :all,
+                          tld_length: 2,
+                          redis: {
+                            expire_after: 1.week,
+                            key_prefix: 'undp:session:',
+                            url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1')
+                          }
+
+    # Disabling some tests we don't need by default so we can create by hand if it is appropriate.
+    config.generators do |g|
+      g.test_framework(
+        :rspec,
+        fixtures: false,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false
+      )
+    end
   end
 end

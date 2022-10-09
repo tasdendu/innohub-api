@@ -33,7 +33,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = ENV.fetch('STORAGE_SERVICE', :local)
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -50,8 +50,23 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  config.action_controller.perform_caching = true
+
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store, {
+    url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1'),
+
+    connect_timeout: 30, # Defaults to 20 seconds
+    read_timeout: 0.2, # Defaults to 1 second
+    write_timeout: 0.2, # Defaults to 1 second
+    reconnect_attempts: 1, # Defaults to 0
+
+    error_handler: lambda { |_method:, _returning:, exception:|
+      # Report errors to Sentry as warnings
+      Rails.logger.debug exception.to_s
+      # Raven.capture_exception exception, level: 'warning', tags: { method: method, returning: returning }
+    }
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
@@ -85,4 +100,18 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = { host: ENV.fetch('HOST_URL', nil) }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch('MAIL_ADDRESS', nil),
+    port: ENV.fetch('MAIL_PORT', nil),
+    domain: URI.parse(ENV.fetch('HOST_URL', nil)).host,
+    user_name: ENV.fetch('MAIL_USER_NAME', nil),
+    password: ENV.fetch('MAIL_PASSWORD', nil),
+    authentication: 'login'
+    # enable_starttls_auto: true
+  }
+  config.active_job.queue_adapter = :sidekiq
+  config.action_mailer.deliver_later_queue_name = :backend
 end

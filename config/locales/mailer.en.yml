@@ -1,0 +1,4 @@
+en:
+  user_mailer:
+    notify_invitation:
+      subject: Hello subject

@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+class PhotoForm < BaseForm
+  def create
+    photo.save
+  end
+
+  def update
+    photo.update(params)
+  end
+
+  def destroy
+    photo.errors.add(:base, :default_delete_not_possible) if photo.default?
+    photo.destroy
+  end
+
+  private
+
+  def photo
+    @photo ||= id ? Photo.find(id) : determine_singularity
+  end
+
+  def determine_singularity
+    parent.respond_to?(:photo) ? parent.build_photo(params) : parent.photos.build(params)
+  end
+end
