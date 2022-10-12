@@ -7,7 +7,7 @@ module Relations
     included do
       has_many :recipients, inverse_of: :user, dependent: :destroy
       has_many :notifications, through: :recipients
-      has_many :user_roles, dependent: :destroy, inverse_of: :user
+      has_many :user_roles, dependent: :destroy
       has_many :roles, through: :user_roles
     end
   end

@@ -57,15 +57,7 @@ class User < ApplicationRecord
   include Validations::User
 
   devise(
-    :lockable,
-    :trackable,
-    :invitable,
-    :confirmable,
-    :timeoutable,
-    :recoverable,
-    :validatable,
-    :registerable,
-    :rememberable,
-    :database_authenticatable
+    :lockable, :trackable, :invitable, :confirmable, :timeoutable, :recoverable, :validatable, :registerable,
+    :rememberable, :database_authenticatable
   )
 end
