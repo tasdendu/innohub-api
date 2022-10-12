@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_12_124135) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_12_180510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_124135) do
     t.index ["imageable_type", "imageable_id"], name: "index_photos_on_imageable"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "country"
+    t.string "state"
+    t.text "about"
+    t.string "social_links", default: [], array: true
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "recipients", force: :cascade do |t|
     t.bigint "notification_id", null: false
     t.bigint "user_id", null: false
@@ -101,6 +113,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_124135) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "setting_categories", force: :cascade do |t|
+    t.bigint "setting_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_setting_categories_on_category_id"
+    t.index ["setting_id"], name: "index_setting_categories_on_setting_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.jsonb "meta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -165,8 +194,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_124135) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "profiles", "users"
   add_foreign_key "recipients", "notifications"
   add_foreign_key "recipients", "users"
+  add_foreign_key "setting_categories", "categories"
+  add_foreign_key "setting_categories", "settings"
+  add_foreign_key "settings", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end

@@ -48,7 +48,7 @@ module Api
         @user_attrs ||= {
           current_user:,
           id: params[:id],
-          include: [:roles]
+          include: %i[roles profile setting cover_photo profile_photo]
         }
       end
 

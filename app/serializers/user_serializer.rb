@@ -56,6 +56,10 @@ class UserSerializer < ApplicationSerializer
     :phone,
     :active
   )
+  has_one :profile
+  has_one :setting
+  has_one :profile_photo
+  has_one :cover_photo
 
   has_many :roles
 end

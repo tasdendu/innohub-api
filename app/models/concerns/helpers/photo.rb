@@ -8,17 +8,17 @@ module Helpers
     MEDIUM = '180X320'
     LARGE = '250X500'
 
-    def small
-      ImageService.new(image:, image_size: SMALL).generate if image.attached?
-    end
-
-    def medium
-      ImageService.new(image:, image_size: MEDIUM).generate if image.attached?
-    end
-
-    def large
-      ImageService.new(image:, image_size: LARGE).generate if image.attached?
-    end
+    # def small
+    #   ImageService.new(image:, image_size: SMALL).generate if image.attached?
+    # end
+    #
+    # def medium
+    #   ImageService.new(image:, image_size: MEDIUM).generate if image.attached?
+    # end
+    #
+    # def large
+    #   ImageService.new(image:, image_size: LARGE).generate if image.attached?
+    # end
 
     def original
       image.url if image.attached?

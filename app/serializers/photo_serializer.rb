@@ -18,18 +18,11 @@
 #
 
 class PhotoSerializer < ApplicationSerializer
-  SMALL = '120X120'
-  MEDIUM = '320X180'
-  LARGE = '500X250'
-
   attributes(
     :id,
     :default,
     :filename,
     :byte_size,
-    :small,
-    :medium,
-    :large,
     :original
   )
 end
