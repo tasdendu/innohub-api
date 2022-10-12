@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+  app:
+    build:
+      context: .
+      dockerfile: newlin-api.Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/newlin-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - /var/log/eb-docker/containers/nginx:/var/log/nginx
