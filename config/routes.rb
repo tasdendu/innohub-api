@@ -51,6 +51,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       end
       resources :notifications, only: %i[index show]
       resources :categories
+      resources :posts
     end
   end
 end
