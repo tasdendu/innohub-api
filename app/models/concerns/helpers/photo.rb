@@ -21,7 +21,7 @@ module Helpers
     end
 
     def original
-      rails_blob_url(image) if image.attached?
+      image.url if image.attached?
     end
   end
 end

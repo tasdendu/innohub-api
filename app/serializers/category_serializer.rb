@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-class CategorySerializer
-  include JSONAPI::Serializer
-  attributes :name, :description
+class CategorySerializer < ApplicationSerializer
+  attributes :name, :description, :image_url
 end
