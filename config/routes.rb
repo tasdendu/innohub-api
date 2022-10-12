@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'sidekiq/web'
-Rails.application.routes.draw do
+Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   root to: 'welcome#index'
 
   scope 'api/v1' do
@@ -50,6 +50,7 @@ Rails.application.routes.draw do
         end
       end
       resources :notifications, only: %i[index show]
+      resources :categories
     end
   end
 end
