@@ -14,6 +14,10 @@ class FollowerForm < BaseForm
   private
 
   def follower
-    @follower ||= id ? Follower.find(id) : parent.followers.find_or_initialize_by(user: current_user)
+    @follower ||= if id
+                    Follower.find(id)
+                  else
+                    parent.followers.find_or_initialize_by(user_id: params[:user_id] || current_user.id)
+                  end
   end
 end

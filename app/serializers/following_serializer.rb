@@ -21,13 +21,13 @@
 #  fk_rails_e6125e9afb  (club_id => clubs.id)
 #
 
-class FollowerSerializer < ApplicationSerializer
+class FollowingSerializer < ApplicationSerializer
   attributes(
     :user_id,
-    :followable_id,
-    :followable_type
+    :followingable_id,
+    :followingable_type
   )
 
-  belongs_to :followable, polymorphic: true
+  belongs_to :followingable, polymorphic: true
   belongs_to :user, serializer: UserListSerializer
 end
