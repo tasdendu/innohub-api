@@ -21,7 +21,7 @@ class FollowingForm < BaseForm
 
   def notification_attribute
     {
-      title: '',
+      title: 'Your new follow',
       text: "<strong>#{following.user.name}</strong> is following <strong>#{following.followingable.name}" \
             '</strong>',
       path: "/#{following.followingable_type.downcase.pluralize}/#{following.followingable_id}",
