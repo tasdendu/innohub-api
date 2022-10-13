@@ -32,7 +32,8 @@ class SuggestionSerializer < ApplicationSerializer
     :suggestable_type,
     :user_id,
     :suggested_at,
-    :suggestions_count
+    :suggestions_count,
+    :likes_count
   )
 
   belongs_to :suggestable, polymorphic: true

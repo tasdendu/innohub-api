@@ -29,7 +29,9 @@ class CommentListSerializer < ApplicationSerializer
     :parent_id,
     :commentable_id,
     :user_id,
-    :commented_at
+    :commented_at,
+    :comments_count,
+    :likes_count
   )
 
   attribute :user do |object|

@@ -31,7 +31,8 @@ class SuggestionListSerializer < ApplicationSerializer
     :suggestable_type,
     :user_id,
     :suggested_at,
-    :suggestions_count
+    :suggestions_count,
+    :likes_count
   )
 
   attribute :user do |object|

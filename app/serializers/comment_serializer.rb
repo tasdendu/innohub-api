@@ -31,7 +31,8 @@ class CommentSerializer < ApplicationSerializer
     :commentable_id,
     :user_id,
     :commented_at,
-    :comments_count
+    :comments_count,
+    :likes_count
   )
 
   belongs_to :commentable, polymorphic: true
