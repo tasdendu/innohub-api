@@ -6,13 +6,13 @@ module Api
       before_action :assign_params, only: :update
 
       def index
-        authorize(User)
+        # authorize(User)
         populator = UserPopulator.new(current_user:, params: query_params)
         render_paginated_collection(populator.run)
       end
 
       def show
-        authorize(User)
+        # authorize(User)
         show_user_form(user_form)
       end
 
@@ -21,12 +21,12 @@ module Api
       end
 
       def update
-        authorize(User)
+        # authorize(User)
         update_user_form(user_form)
       end
 
       def destroy
-        authorize(User)
+        # authorize(User)
         destroy_user_form(user_form)
       end
 
