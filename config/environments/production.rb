@@ -113,5 +113,5 @@ Rails.application.configure do
     # enable_starttls_auto: true
   }
   config.active_job.queue_adapter = :sidekiq
-  config.action_mailer.deliver_later_queue_name = :backend
+  config.action_mailer.deliver_later_queue_name = :undp
 end
