@@ -74,6 +74,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :notifications, only: %i[index show]
       resources :categories
       resources :posts, concerns: %i[commentable likeable suggestable]
+      resources :comments, concerns: [:likeable]
+      resources :suggestions, concerns: [:likeable]
     end
   end
 end

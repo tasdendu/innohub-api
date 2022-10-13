@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_114924) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_130505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_114924) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "comments_count"
+    t.bigint "likes_count"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -221,6 +222,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_114924) do
     t.bigint "suggestions_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "likes_count"
     t.index ["suggestable_type", "suggestable_id"], name: "index_suggestions_on_suggestable"
     t.index ["user_id"], name: "index_suggestions_on_user_id"
   end
