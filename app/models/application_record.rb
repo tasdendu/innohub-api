@@ -2,6 +2,7 @@
 
 class ApplicationRecord < ActiveRecord::Base
   include Rails.application.routes.url_helpers
+  include ActionView::Helpers::DateHelper
 
   self.abstract_class = true
 

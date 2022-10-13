@@ -48,17 +48,14 @@
 #  index_users_on_unlock_token                       (unlock_token) UNIQUE
 #
 
-class User < ApplicationRecord
-  include Scopes::User
-  include Helpers::User
-  include Booleans::User
-  include Delegates::User
-  include Overrides::User
-  include Relations::User
-  include Validations::User
-
-  devise(
-    :lockable, :trackable, :invitable, :confirmable, :timeoutable, :recoverable, :validatable, :registerable,
-    :rememberable, :database_authenticatable
+class UserListSerializer < ApplicationSerializer
+  attributes(
+    :id,
+    :name,
+    :username,
+    :phone,
+    :active
   )
+
+  attribute :profile_photo_url, &:profile_photo_url
 end

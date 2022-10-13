@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_12_183319) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_050537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,41 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_183319) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.bigint "parent_id"
+    t.string "type"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "comments_count"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "followable_type", null: false
+    t.bigint "followable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followable_type", "followable_id"], name: "index_followers_on_followable"
+    t.index ["user_id"], name: "index_followers_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.string "type"
+    t.string "likeable_type", null: false
+    t.bigint "likeable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -155,6 +190,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_183319) do
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
+  create_table "suggestions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "suggestable_type", null: false
+    t.bigint "suggestable_id", null: false
+    t.text "body"
+    t.bigint "parent_id"
+    t.string "type"
+    t.bigint "suggestions_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["suggestable_type", "suggestable_id"], name: "index_suggestions_on_suggestable"
+    t.index ["user_id"], name: "index_suggestions_on_user_id"
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -226,6 +275,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_183319) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.bigint "followers_count"
+    t.bigint "comments_count"
+    t.bigint "likes_count"
+    t.bigint "suggestions_count"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -248,6 +301,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_183319) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "followers", "users"
+  add_foreign_key "likes", "users"
   add_foreign_key "post_categories", "categories"
   add_foreign_key "post_categories", "posts"
   add_foreign_key "posts", "users"
@@ -257,6 +313,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_183319) do
   add_foreign_key "setting_categories", "categories"
   add_foreign_key "setting_categories", "settings"
   add_foreign_key "settings", "users"
+  add_foreign_key "suggestions", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"

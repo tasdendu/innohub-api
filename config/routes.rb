@@ -42,16 +42,32 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
         resources :videos
       end
 
+      concern :likeable do
+        resources :likes
+      end
+
+      concern :commentable do
+        resources :comments
+      end
+
+      concern :suggestable do
+        resources :suggestions
+      end
+
+      concern :followable do
+        resources :followers
+      end
+
       resources :profiles, concerns: :imageable
       resources :roles
-      resources :users do
+      resources :users, concerns: :followable do
         collection do
           get :profile
         end
       end
       resources :notifications, only: %i[index show]
       resources :categories
-      resources :posts
+      resources :posts, concerns: %i[commentable likeable suggestable]
     end
   end
 end
