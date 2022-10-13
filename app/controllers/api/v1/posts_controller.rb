@@ -52,8 +52,7 @@ module Api
         @post_attributes ||= {
           id: params[:id],
           current_user:,
-          parent:,
-          include: %i[photos options]
+          parent:
         }
       end
 
