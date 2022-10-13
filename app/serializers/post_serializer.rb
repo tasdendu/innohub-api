@@ -6,4 +6,5 @@ class PostSerializer < ApplicationSerializer
   )
 
   has_many :photos
+  has_many :options
 end

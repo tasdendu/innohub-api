@@ -5,7 +5,7 @@ module Relations
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :user, inverse_of: :posts
+      belongs_to :user, inverse_of: :posts, counter_cache: true
       belongs_to :postable, polymorphic: true, optional: true, counter_cache: true
 
       has_many :photos, as: :imageable, dependent: :destroy
@@ -14,8 +14,9 @@ module Relations
       has_many :likes, as: :likeable, dependent: :destroy
       has_many :comments, as: :commentable, dependent: :destroy
       has_many :suggestions, as: :suggestable, dependent: :destroy
+      has_many :options, inverse_of: :post, dependent: :destroy
 
-      accepts_nested_attributes_for(:photos, allow_destroy: true)
+      accepts_nested_attributes_for(:photos, :options, allow_destroy: true)
     end
   end
 end

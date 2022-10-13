@@ -36,7 +36,9 @@ module Api
       # Only allow a list of trusted parameters through.
       def post_params
         params.require(:post).permit(
-          :title, :body, :kind, :enabled, tag_list: [], category_ids: [], photos_attributes: %i[id image _destroy]
+          :title, :body, :kind, :enabled,
+          tag_list: [], category_ids: [], photos_attributes: %i[id image _destroy],
+          options_attributes: %i[id text _destroy]
         )
       end
 
@@ -51,7 +53,7 @@ module Api
           id: params[:id],
           current_user:,
           parent:,
-          include: [:photos]
+          include: %i[photos options]
         }
       end
 

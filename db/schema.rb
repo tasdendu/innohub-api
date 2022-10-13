@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_140019) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_143420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -132,6 +132,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_140019) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_options_on_post_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -307,6 +315,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_140019) do
     t.bigint "likes_count"
     t.bigint "suggestions_count"
     t.bigint "followings_count"
+    t.bigint "posts_count"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -334,6 +343,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_140019) do
   add_foreign_key "followings", "users"
   add_foreign_key "groups", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "options", "posts"
   add_foreign_key "post_categories", "categories"
   add_foreign_key "post_categories", "posts"
   add_foreign_key "posts", "users"

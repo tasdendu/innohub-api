@@ -6,7 +6,9 @@ class CommentForm < BaseForm
   end
 
   def create
-    comment.save
+    comment.save.tap do |res|
+      res && create_notification(notification_attribute)
+    end
   end
 
   def update
@@ -19,5 +21,15 @@ class CommentForm < BaseForm
 
   def comment
     @comment ||= id ? Comment.find(id) : parent.comments.build(params.merge!(user: current_user))
+  end
+
+  def notification_attribute # rubocop:disable Metrics/AbcSize
+    {
+      title: '',
+      text: "<strong>#{comment.user.name}</strong> has commented on <strong>#{comment.commentable.user.name}" \
+            "</strong>'s #{comment.commentable_type.downcase} '#{comment.commentable.try(:body)}'",
+      path: "/#{comment.commentable_type.downcase.pluralize}/#{comment.commentable_id}",
+      recipient_ids: [comment.commentable.user_id]
+    }
   end
 end
