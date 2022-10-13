@@ -34,11 +34,12 @@ class SuggestionListSerializer < ApplicationSerializer
     :suggestions_count,
     :likes_count
   )
-
+  attribute :liked do |obj, params|
+    obj.likes.pluck(:user_id).include?(params[:current_user].id)
+  end
   attribute :user do |object|
     UserListSerializer.new(object.user)
   end
-
   attribute :children do |object, params|
     SuggestionChildrenListSerializer.new(object.children, params:)
   end

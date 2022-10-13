@@ -35,6 +35,10 @@ class CommentSerializer < ApplicationSerializer
     :likes_count
   )
 
+  attribute :liked do |obj, params|
+    obj.likes.pluck(:user_id).include?(params[:current_user].id)
+  end
+
   belongs_to :commentable, polymorphic: true
   belongs_to :user, serializer: UserListSerializer
 

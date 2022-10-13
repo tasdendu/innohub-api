@@ -8,4 +8,14 @@ class PostSerializer < ApplicationSerializer
 
   has_many :photos
   has_many :options
+
+  attribute :liked do |obj, params|
+    obj.likes.pluck(:user_id).include?(params[:current_user].id)
+  end
+  attribute :opinion_given do |obj, params|
+    obj.opinions.pluck(:user_id).include?(params[:current_user].id)
+  end
+  attribute :petition_given do |obj, params|
+    obj.petitions.pluck(:user_id).include?(params[:current_user].id)
+  end
 end
