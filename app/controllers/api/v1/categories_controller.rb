@@ -4,6 +4,7 @@ module Api
   module V1
     class CategoriesController < ApplicationController
       before_action :assign_params, only: %i[create update]
+      skip_before_action :authenticate_user!, only: :index
 
       # GET /categories
       def index
