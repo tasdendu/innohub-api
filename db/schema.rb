@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_110642) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_114924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_110642) do
     t.datetime "updated_at", null: false
     t.index ["followingable_type", "followingable_id"], name: "index_followings_on_followingable"
     t.index ["user_id"], name: "index_followings_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.boolean "private", default: false
+    t.bigint "followers_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -315,6 +326,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_110642) do
   add_foreign_key "comments", "users"
   add_foreign_key "followers", "users"
   add_foreign_key "followings", "users"
+  add_foreign_key "groups", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "post_categories", "categories"
   add_foreign_key "post_categories", "posts"

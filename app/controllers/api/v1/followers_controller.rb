@@ -30,6 +30,8 @@ module Api
       private
 
       def follower_params
+        return {} unless params.respond_to?(:follower)
+
         params.require(:follower).permit(:user_id)
       end
 

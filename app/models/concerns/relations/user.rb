@@ -17,6 +17,7 @@ module Relations
       has_many :posts, inverse_of: :user, dependent: :destroy
       has_many :followers, as: :followable, dependent: :destroy
       has_many :followings, as: :followingable, dependent: :destroy
+      has_many :groups, inverse_of: :user, dependent: :destroy
 
       accepts_nested_attributes_for(
         :profile, :setting, :profile_photo, :cover_photo,
