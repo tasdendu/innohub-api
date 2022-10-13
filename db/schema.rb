@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_183821) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_195036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -152,6 +152,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_183821) do
     t.index ["post_id"], name: "index_options_on_post_id"
   end
 
+  create_table "petitions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_petitions_on_post_id"
+    t.index ["user_id"], name: "index_petitions_on_user_id"
+  end
+
   create_table "photos", force: :cascade do |t|
     t.boolean "default", default: false
     t.string "type"
@@ -184,6 +193,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_183821) do
     t.datetime "updated_at", null: false
     t.string "postable_type"
     t.bigint "postable_id"
+    t.bigint "petitions_count"
     t.index ["postable_type", "postable_id"], name: "index_posts_on_postable"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -356,6 +366,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_183821) do
   add_foreign_key "opinions", "options"
   add_foreign_key "opinions", "users"
   add_foreign_key "options", "posts"
+  add_foreign_key "petitions", "posts"
+  add_foreign_key "petitions", "users"
   add_foreign_key "post_categories", "categories"
   add_foreign_key "post_categories", "posts"
   add_foreign_key "posts", "users"
