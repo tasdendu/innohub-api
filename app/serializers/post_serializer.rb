@@ -6,9 +6,6 @@ class PostSerializer < ApplicationSerializer
     :petitions_count
   )
 
-  has_many :photos
-  has_many :options
-
   attribute :liked do |obj, params|
     obj.likes.pluck(:user_id).include?(params[:current_user].id)
   end
@@ -17,5 +14,11 @@ class PostSerializer < ApplicationSerializer
   end
   attribute :petition_given do |obj, params|
     obj.petitions.pluck(:user_id).include?(params[:current_user].id)
+  end
+  attribute :photos do |obj|
+    PhotoSerializer.new(obj.photos)
+  end
+  attribute :options do |obj|
+    OptionSerializer.new(obj.options)
   end
 end
