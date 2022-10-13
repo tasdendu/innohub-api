@@ -7,7 +7,7 @@ module Scopes
     included do
       default_scope -> { order(created_at: :desc) }
       scope :search, lambda { |query|
-        joins(:tags, :categories).where(
+        left_joins(:tags, :categories).where(
           "CONCAT_WS(' ', title, body, tags.name, categories.name) iLIKE ?", "%#{query&.squish}%"
         ).distinct
       }
