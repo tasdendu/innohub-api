@@ -6,6 +6,7 @@ module Relations
 
     included do
       belongs_to :user, inverse_of: :posts
+      belongs_to :postable, polymorphic: true, optional: true, counter_cache: true
 
       has_many :photos, as: :imageable, dependent: :destroy
       has_many :post_categories, dependent: :destroy

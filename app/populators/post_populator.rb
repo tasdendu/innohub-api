@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 class PostPopulator < BasePopulator
-  attr_accessor :kind
+  attr_accessor :kind, :category_ids
 
   KIND = %w[idea petition question poll].freeze
 
   def run
     posts
-      .send { |posts| filter_by_kind(posts) }
+      .then { |posts| filter_by_kind(posts) }
+      .then { |posts| filter_by_category(posts) }
       .public_send(:search, q)
   end
 
   private
 
   def posts
-    Post.includes(:comments, :likes, :suggestions)
+    @posts ||= (parent ? parent.posts : Post).includes(:comments, :likes, :suggestions)
   end
 
   def filter_by_kind(posts)
@@ -23,7 +24,13 @@ class PostPopulator < BasePopulator
     posts.where(kind: fetch_kind)
   end
 
+  def filter_by_category(posts)
+    return posts if category_ids.blank?
+
+    posts.joins(:categories).where(categories: { id: category_ids }).distinct
+  end
+
   def fetch_kind
-    KIND.presence_in(kind) || :idea
+    kind.presence_in(KIND) || :idea
   end
 end

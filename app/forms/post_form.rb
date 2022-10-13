@@ -18,6 +18,10 @@ class PostForm < BaseForm
   private
 
   def post
-    @post ||= id ? Post.find(id) : current_user.posts.build(params)
+    @post ||= id ? Post.find(id) : build_post_form
+  end
+
+  def build_post_form
+    parent ? parent.posts.build(params.merge!(user: current_user)) : current_user.posts.build(params)
   end
 end

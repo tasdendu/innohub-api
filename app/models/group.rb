@@ -5,6 +5,7 @@ class Group < ApplicationRecord
 
   has_many :followers, as: :followable, dependent: :destroy
   has_many :photos, as: :imageable, dependent: :destroy
+  has_many :posts, as: :postable, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
   scope :search, lambda { |query|

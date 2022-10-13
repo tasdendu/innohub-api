@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_130505) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_140019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,6 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_130505) do
     t.bigint "followers_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "posts_count"
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
@@ -163,6 +164,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_130505) do
     t.bigint "suggestions_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "postable_type"
+    t.bigint "postable_id"
+    t.index ["postable_type", "postable_id"], name: "index_posts_on_postable"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

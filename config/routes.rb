@@ -70,7 +70,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
           get :profile
         end
       end
-      resources :groups, only: [:show, :create, :destroy, :update], concerns: :followable
+      resources :groups, only: [:show, :create, :destroy, :update], concerns: :followable do
+        resources :posts, only: [:index, :create]
+      end
       resources :notifications, only: %i[index show]
       resources :categories
       resources :posts, concerns: %i[commentable likeable suggestable]

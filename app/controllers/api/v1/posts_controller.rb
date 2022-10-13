@@ -7,7 +7,7 @@ module Api
 
       # GET /posts
       def index
-        populate = PostPopulator.new(current_user:, params: query_params)
+        populate = PostPopulator.new(current_user:, parent:, params: query_params)
         render_paginated_collection(populate.run)
       end
 
@@ -50,6 +50,7 @@ module Api
         @post_attributes ||= {
           id: params[:id],
           current_user:,
+          parent:,
           include: [:photos]
         }
       end
@@ -59,7 +60,7 @@ module Api
       end
 
       def query_params
-        params.permit(:q, :kind)
+        params.permit(:q, :kind, category_ids: [])
       end
     end
   end
