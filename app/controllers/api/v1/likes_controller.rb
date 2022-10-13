@@ -9,7 +9,7 @@ module Api
             :likeable,
             user: %i[profile roles]
           ),
-          LikeListSerializer
+          serializer: LikeListSerializer
         )
       end
 

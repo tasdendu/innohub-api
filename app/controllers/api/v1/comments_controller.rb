@@ -12,7 +12,7 @@ module Api
             commentable: :photo,
             user: %i[profile roles]
           ),
-          CommentListSerializer
+          serializer: CommentListSerializer
         )
       end
 

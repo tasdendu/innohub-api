@@ -12,7 +12,7 @@ module Api
             suggestable: :photo,
             user: %i[profile roles]
           ),
-          SuggestionListSerializer
+          serializer: SuggestionListSerializer
         )
       end
 

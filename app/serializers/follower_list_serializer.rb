@@ -3,10 +3,11 @@
 class FollowerListSerializer < ApplicationSerializer
   attributes(
     :user_id,
-    :club_id
+    :followable_id,
+    :followable_type
   )
 
-  attribute :club do |object, params|
-    ClubListSerializer.new(object.club, params:)
+  attribute :user do |object, params|
+    UserListSerializer.new(object.user, params:)
   end
 end

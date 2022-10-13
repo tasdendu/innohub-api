@@ -3,55 +3,37 @@
 module Api
   module V1
     class FollowersController < ApplicationController
-      before_action :set_follower, only: %i[show update destroy]
-
-      # GET /followers
       def index
-        @followers = Follower.all
-
-        render json: @followers
+        render_paginated_collection(
+          (parent.respond_to?(:followers) ? parent.followers : Follower).includes(
+            :followable,
+            user: %i[profile roles]
+          ),
+          serializer: FollowerListSerializer
+        )
       end
 
-      # GET /followers/1
       def show
-        render json: @follower
+        show_follower_form(follower_form)
       end
 
-      # POST /followers
       def create
-        @follower = Follower.new(follower_params)
-
-        if @follower.save
-          render json: @follower, status: :created, location: @follower
-        else
-          render json: @follower.errors, status: :unprocessable_entity
-        end
+        create_follower_form(follower_form)
       end
 
-      # PATCH/PUT /followers/1
-      def update
-        if @follower.update(follower_params)
-          render json: @follower
-        else
-          render json: @follower.errors, status: :unprocessable_entity
-        end
-      end
-
-      # DELETE /followers/1
       def destroy
-        @follower.destroy
+        destroy_follower_form(follower_form)
       end
 
       private
 
-      # Use callbacks to share common setup or constraints between actions.
-      def set_follower
-        @follower = Follower.find(params[:id])
-      end
-
-      # Only allow a list of trusted parameters through.
-      def follower_params
-        params.require(:follower).permit(:user_id, :followable_id, :followable_type)
+      def follower_form
+        followerForm.new(
+          current_user:,
+          parent:,
+          id: params[:id],
+          include: %i[followerable user]
+        )
       end
     end
   end
