@@ -28,7 +28,7 @@ desc 'Seeding users'
   user.confirm
 end
 
-puts 'Seeding category'
+Rails.logger.debug 'Seeding category'
 [
   { name: 'Environmental', id: 1 },
   { name: 'Health', id: 2 },

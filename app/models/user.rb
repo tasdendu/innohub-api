@@ -56,6 +56,7 @@ class User < ApplicationRecord
   include Overrides::User
   include Relations::User
   include Validations::User
+  include ::Callbacks::User
 
   devise(
     :lockable, :trackable, :invitable, :confirmable, :timeoutable, :recoverable, :validatable, :registerable,

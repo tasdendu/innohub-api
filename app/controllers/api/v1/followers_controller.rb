@@ -28,11 +28,11 @@ module Api
       private
 
       def follower_form
-        followerForm.new(
+        FollowerForm.new(
           current_user:,
           parent:,
           id: params[:id],
-          include: %i[followerable user]
+          include: %i[followable user]
         )
       end
     end
