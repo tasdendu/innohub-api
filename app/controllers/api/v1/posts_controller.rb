@@ -62,7 +62,7 @@ module Api
       end
 
       def query_params
-        params.permit(:q, :kind, :user_id, category_ids: [])
+        params.permit(:q, :kind, :user_id, :trending, category_ids: [])
       end
     end
   end
