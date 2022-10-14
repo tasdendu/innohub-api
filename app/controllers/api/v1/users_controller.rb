@@ -17,7 +17,7 @@ module Api
       end
 
       def profile
-        render json: UserSerializer.new(current_user, include: %i[roles])
+        render json: UserSerializer.new(current_user, include: %i[roles profile cover_photo profile_photo])
       end
 
       def update
