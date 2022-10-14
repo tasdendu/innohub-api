@@ -51,7 +51,7 @@ module Api
         @group_attributes ||= {
           id: params[:id],
           current_user:,
-          include: %i[user photos]
+          include: %i[user]
         }
       end
 
