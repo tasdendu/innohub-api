@@ -7,11 +7,11 @@ class PostPopulator < BasePopulator
 
   def run
     posts
+      .public_send(:search, q)
       .then { |posts| filter_by_kind(posts) }
       .then { |posts| filter_by_category(posts) }
       .then { |posts| filter_by_user(posts) }
       .then { |posts| filter_by_trending(posts) }
-      .public_send(:search, q)
   end
 
   private
