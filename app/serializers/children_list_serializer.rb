@@ -2,7 +2,7 @@
 
 class ChildrenListSerializer < ApplicationSerializer
   attributes(
-    :text,
+    :body,
     :parent_id,
     :commentable_id,
     :user_id,
