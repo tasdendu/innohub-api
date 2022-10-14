@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostPopulator < BasePopulator
-  attr_accessor :kind, :category_ids
+  attr_accessor :kind, :category_ids, :user_id
 
   KIND = %w[idea petition question poll].freeze
 
@@ -9,6 +9,7 @@ class PostPopulator < BasePopulator
     posts
       .then { |posts| filter_by_kind(posts) }
       .then { |posts| filter_by_category(posts) }
+      .then { |posts| filter_by_user(posts) }
       .public_send(:search, q)
   end
 
@@ -28,6 +29,12 @@ class PostPopulator < BasePopulator
     return posts if category_ids.blank?
 
     posts.joins(:categories).where(categories: { id: category_ids }).distinct
+  end
+
+  def filter_by_user(posts)
+    return posts if user_id.blank?
+
+    posts.where(user_id:)
   end
 
   def fetch_kind

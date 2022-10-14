@@ -4,6 +4,7 @@ module Api
   module V1
     class PostsController < ApplicationController
       before_action :assign_params, only: %i[create update]
+      skip_before_action :authenticate_user!, only: [:index, :show]
 
       # GET /posts
       def index
@@ -61,7 +62,7 @@ module Api
       end
 
       def query_params
-        params.permit(:q, :kind, category_ids: [])
+        params.permit(:q, :kind, :user_id, category_ids: [])
       end
     end
   end
