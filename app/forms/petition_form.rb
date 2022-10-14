@@ -20,7 +20,7 @@ class PetitionForm < BaseForm
       title: petition.user.profile_photo_url,
       text: "<strong>#{petition.user.name}</strong> has supported your petition <strong>#{petition.post.title}" \
             '</strong>',
-      path: "/posts/#{petition.post_id}",
+      path: "posts/#{petition.post_id}",
       recipient_ids: [petition.post.user_id]
     }
   end

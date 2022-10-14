@@ -24,7 +24,7 @@ class FollowingForm < BaseForm
       title: following.user.profile_photo_url,
       text: "<strong>#{following.user.name}</strong> is following <strong>#{following.followingable.name}" \
             '</strong>',
-      path: "/#{following.followingable_type.downcase.pluralize}/#{following.followingable_id}",
+      path: "#{following.followingable_type.downcase.pluralize}/#{following.followingable_id}",
       recipient_ids: [following.followingable.id]
     }
   end

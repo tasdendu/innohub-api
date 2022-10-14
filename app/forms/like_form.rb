@@ -24,7 +24,7 @@ class LikeForm < BaseForm
       title: like.user.profile_photo_url,
       text: "<strong>#{like.user.name}</strong> has liked your #{like.likeable_type.downcase} <strong>" \
             "'#{like.likeable.try(:title) || like.likeable.try(:body)}'</strong>",
-      path: "/#{like.likeable_type.downcase.pluralize}/#{like.likeable_id}",
+      path: "#{like.likeable_type.downcase.pluralize}/#{like.likeable_id}",
       recipient_ids: [like.likeable.user_id]
     }
   end

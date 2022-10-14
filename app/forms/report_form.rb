@@ -18,7 +18,7 @@ class ReportForm < BaseForm
       title: report.user.profile_photo_url,
       text: "<strong>#{report.user.name}</strong> has reported a post <strong>#{report.post.title}" \
             '</strong>',
-      path: "/posts/#{report.post_id}",
+      path: "posts/#{report.post_id}",
       recipient_ids: User.select(&:admin?).pluck(:id)
     }
   end
