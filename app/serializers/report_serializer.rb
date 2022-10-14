@@ -3,7 +3,7 @@
 class ReportSerializer < ApplicationSerializer
   attributes :user_id, :post_id
 
-  attribute :user do |obj|
-    UserListSerializer.new(obj.user)
+  attribute :user do |obj, params|
+    UserListSerializer.new(obj.user, params:)
   end
 end

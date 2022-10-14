@@ -9,7 +9,7 @@ class ChildrenListSerializer < ApplicationSerializer
     :commented_at
   )
 
-  attribute :user do |object|
-    UserListSerializer.new(object.user)
+  attribute :user do |object, params|
+    UserListSerializer.new(object.user, params:)
   end
 end

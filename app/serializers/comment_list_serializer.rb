@@ -40,8 +40,8 @@ class CommentListSerializer < ApplicationSerializer
   attribute :liked do |obj, params|
     obj.likes.pluck(:user_id).include?(params[:current_user].id)
   end
-  attribute :user do |object|
-    UserListSerializer.new(object.user)
+  attribute :user do |object, params|
+    UserListSerializer.new(object.user, params:)
   end
   attribute :children do |object, params|
     ChildrenListSerializer.new(object.children, params:)

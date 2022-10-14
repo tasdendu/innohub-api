@@ -24,7 +24,7 @@ class PostSerializer < ApplicationSerializer
   attribute :options do |obj|
     OptionSerializer.new(obj.options)
   end
-  attribute :user do |obj|
-    UserListSerializer.new(obj.user)
+  attribute :user do |obj, params|
+    UserListSerializer.new(obj.user, params:)
   end
 end
