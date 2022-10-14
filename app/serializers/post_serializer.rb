@@ -3,7 +3,7 @@
 class PostSerializer < ApplicationSerializer
   attributes(
     :title, :body, :kind, :enabled, :comments_count, :likes_count, :suggestions_count, :tag_list,
-    :petitions_count, :created_at
+    :petitions_count, :created_at, :reports_count
   )
 
   attribute :likeable_id do |obj, params|

@@ -4,7 +4,7 @@ module Api
   module V1
     class PostsController < ApplicationController
       before_action :assign_params, only: %i[create update]
-      skip_before_action :authenticate_user!, only: [:index, :show]
+      skip_before_action :authenticate_user!, only: %i[index show]
 
       # GET /posts
       def index

@@ -54,7 +54,8 @@ class UserSerializer < ApplicationSerializer
     :email,
     :username,
     :phone,
-    :active
+    :active,
+    :reports_count
   )
   has_one :profile
   has_one :setting

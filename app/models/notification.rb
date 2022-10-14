@@ -14,4 +14,5 @@ class Notification < ApplicationRecord
   include Scopes::Notification
   include Relations::Notification
   include Validations::Notification
+  include ::Callbacks::Notification
 end

@@ -17,6 +17,7 @@ module Relations
       has_many :options, inverse_of: :post, dependent: :destroy
       has_many :opinions, through: :options
       has_many :petitions, inverse_of: :post, dependent: :destroy
+      has_many :reports, inverse_of: :post, dependent: :destroy
 
       accepts_nested_attributes_for(:photos, :options, allow_destroy: true)
     end

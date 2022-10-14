@@ -54,7 +54,8 @@ class UserListSerializer < ApplicationSerializer
     :name,
     :username,
     :phone,
-    :active
+    :active,
+    :reports_count
   )
 
   attribute :profile_photo_url, &:profile_photo_url
