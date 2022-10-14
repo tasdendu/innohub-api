@@ -21,7 +21,7 @@ class OpinionForm < BaseForm
 
   def notification_attribute
     {
-      title: 'Opinion received',
+      title: opinion.user.profile_photo_url,
       text: "<strong>#{opinion.user.name}</strong> has selected <strong>#{opinion.option.text}" \
             '</strong>',
       path: "/posts/#{opinion.option.post_id}",

@@ -23,9 +23,9 @@ class FollowerForm < BaseForm
                   end
   end
 
-  def notification_attribute
+  def notification_attribute # rubocop:disable Metrics/AbcSize
     {
-      title: 'Follower received',
+      title: follower.user.profile_photo_url,
       text: "<strong>#{follower.user.name}</strong> is following " \
             "<strong>#{follower.followable.name}</strong>",
       path: "/#{follower.followable_type.downcase.pluralize}/#{follower.followable_id}",

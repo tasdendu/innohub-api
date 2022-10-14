@@ -19,9 +19,9 @@ class FollowingForm < BaseForm
     @following ||= id ? Following.find(id) : parent.followings.find_or_initialize_by(user: current_user)
   end
 
-  def notification_attribute
+  def notification_attribute # rubocop:disable Metrics/AbcSize
     {
-      title: 'Your new follow',
+      title: following.user.profile_photo_url,
       text: "<strong>#{following.user.name}</strong> is following <strong>#{following.followingable.name}" \
             '</strong>',
       path: "/#{following.followingable_type.downcase.pluralize}/#{following.followingable_id}",

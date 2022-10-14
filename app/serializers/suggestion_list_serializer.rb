@@ -34,6 +34,10 @@ class SuggestionListSerializer < ApplicationSerializer
     :suggestions_count,
     :likes_count
   )
+
+  attribute :likeable_id do |obj, params|
+    obj.likes.find_by(user_id: params[:current_user].id)&.id
+  end
   attribute :liked do |obj, params|
     obj.likes.pluck(:user_id).include?(params[:current_user].id)
   end

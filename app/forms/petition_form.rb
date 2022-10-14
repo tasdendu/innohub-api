@@ -17,7 +17,7 @@ class PetitionForm < BaseForm
 
   def notification_attribute
     {
-      title: 'Petition received',
+      title: petition.user.profile_photo_url,
       text: "<strong>#{petition.user.name}</strong> has supported your petition <strong>#{petition.post.title}" \
             '</strong>',
       path: "/posts/#{petition.post_id}",
