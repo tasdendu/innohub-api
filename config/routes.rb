@@ -89,6 +89,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
         collection do
           get :category
           get :user
+          get :kind
         end
       end
     end
