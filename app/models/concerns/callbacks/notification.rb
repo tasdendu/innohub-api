@@ -9,12 +9,7 @@ module Callbacks
     end
 
     def broadcast_notification
-      users.each do |user|
-        ActionCable.server.broadcast(
-          "notification_#{user.id}",
-          NotificationSerializer.new(self, params: { current_user: user }).serializable_hash.to_json
-        )
-      end
+      NotificationJob.perform_async(id)
     end
   end
 end

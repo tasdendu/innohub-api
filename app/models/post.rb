@@ -3,6 +3,7 @@
 class Post < ApplicationRecord
   include Scopes::Post
   include Relations::Post
+  include ::Callbacks::Post
 
   acts_as_taggable_on :tags
 
