@@ -3,7 +3,7 @@
 class PostSerializer < ApplicationSerializer
   attributes(
     :title, :body, :kind, :enabled, :comments_count, :likes_count, :suggestions_count, :tag_list,
-    :petitions_count
+    :petitions_count, :created_at
   )
 
   attribute :liked do |obj, params|
@@ -20,5 +20,8 @@ class PostSerializer < ApplicationSerializer
   end
   attribute :options do |obj|
     OptionSerializer.new(obj.options)
+  end
+  attribute :user do |obj|
+    UserListSerializer.new(obj.user)
   end
 end

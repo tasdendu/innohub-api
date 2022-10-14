@@ -8,7 +8,7 @@ module Api
       def index
         # authorize(User)
         populator = UserPopulator.new(current_user:, params: query_params)
-        render_paginated_collection(populator.run)
+        render_paginated_collection(populator.run, serializer: UserListSerializer)
       end
 
       def show
