@@ -4,7 +4,7 @@ class GroupSerializer < ApplicationSerializer
   attributes :name, :description, :private, :followers_count
 
   attribute :photos do |obj, params|
-    PhotoSerializer.new(obj, params:)
+    PhotoSerializer.new(obj.photos, params:)
   end
   belongs_to :user, serializer: UserListSerializer
 end
