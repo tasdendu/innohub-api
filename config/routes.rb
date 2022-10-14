@@ -70,7 +70,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
           get :profile
         end
       end
-      resources :groups, only: [:show, :create, :destroy, :update], concerns: :followable do
+      resources :groups, only: [:index, :show, :create, :destroy, :update], concerns: :followable do
         resources :posts, only: [:index, :create]
       end
       resources :notifications, only: %i[index show]
@@ -84,6 +84,12 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :suggestions, concerns: [:likeable]
       resources :options, only: [] do
         resources :opinions
+      end
+      resources :dashboards, only: :index do
+        collection do
+          get :category
+          get :user
+        end
       end
     end
   end

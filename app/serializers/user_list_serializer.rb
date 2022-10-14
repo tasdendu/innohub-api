@@ -55,8 +55,20 @@ class UserListSerializer < ApplicationSerializer
     :username,
     :phone,
     :active,
-    :reports_count
+    :reports_count,
+    :followings_count,
+    :followers_count,
+    :posts_count
   )
 
+  attribute :followingable_id do |obj, params|
+    obj.followings.find_by(user_id: params[:current_user].id)&.id
+  end
+  attribute :followable_id do |obj, params|
+    obj.followers.find_by(user_id: params[:current_user].id)&.id
+  end
+  attribute :followed do |obj, params|
+    obj.followings.pluck(:user_id).include?(params[:current_user].id)
+  end
   attribute :profile_photo_url, &:profile_photo_url
 end
