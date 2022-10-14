@@ -26,8 +26,7 @@ class UserPopulator < BasePopulator
 
   def users
     @users ||= User.includes(
-      :roles,
-      :roles_users
+      :roles
     )
   end
 
