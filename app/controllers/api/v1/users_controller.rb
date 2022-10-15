@@ -4,6 +4,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :assign_params, only: :update
+      skip_before_action :authenticate_user!, only: :index
 
       def index
         # authorize(User)
@@ -18,7 +19,7 @@ module Api
 
       def profile
         render json: UserSerializer.new(current_user, include: %i[roles profile cover_photo profile_photo],
-                                                      params: { current_user: })
+                                        params: { current_user: })
       end
 
       def update

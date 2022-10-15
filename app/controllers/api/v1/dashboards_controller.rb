@@ -3,6 +3,8 @@
 module Api
   module V1
     class DashboardsController < ApplicationController
+      skip_before_action :authenticate_user!, only: :index
+
       def index
         populate = DashboardPopulator.new(current_user:, params: query_params)
         render json: DashboardSerializer.new(populate.run)
