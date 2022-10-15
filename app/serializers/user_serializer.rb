@@ -62,13 +62,13 @@ class UserSerializer < ApplicationSerializer
   )
 
   attribute :followingable_id do |obj, params|
-    obj.followings.find_by(user_id: params[:current_user].id)&.id
+    obj.followings.find_by(user_id: params[:current_user]&.id)&.id
   end
   attribute :followable_id do |obj, params|
-    obj.followers.find_by(user_id: params[:current_user].id)&.id
+    obj.followers.find_by(user_id: params[:current_user]&.id)&.id
   end
   attribute :followed do |obj, params|
-    obj.followings.pluck(:user_id).include?(params[:current_user].id)
+    obj.followings.pluck(:user_id).include?(params[:current_user]&.id)
   end
 
   has_one :profile

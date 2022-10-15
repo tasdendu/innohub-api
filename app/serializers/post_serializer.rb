@@ -7,16 +7,16 @@ class PostSerializer < ApplicationSerializer
   )
 
   attribute :likeable_id do |obj, params|
-    obj.likes.find_by(user_id: params[:current_user].id)&.id
+    obj.likes.find_by(user_id: params[:current_user]&.id)&.id
   end
   attribute :liked do |obj, params|
-    obj.likes.pluck(:user_id).include?(params[:current_user].id)
+    obj.likes.pluck(:user_id).include?(params[:current_user]&.id)
   end
   attribute :opinion_given do |obj, params|
-    obj.opinions.pluck(:user_id).include?(params[:current_user].id)
+    obj.opinions.pluck(:user_id).include?(params[:current_user]&.id)
   end
   attribute :petition_given do |obj, params|
-    obj.petitions.pluck(:user_id).include?(params[:current_user].id)
+    obj.petitions.pluck(:user_id).include?(params[:current_user]&.id)
   end
   attribute :photos do |obj|
     PhotoSerializer.new(obj.photos)

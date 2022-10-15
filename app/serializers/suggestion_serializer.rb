@@ -40,7 +40,7 @@ class SuggestionSerializer < ApplicationSerializer
     obj.likes.find_by(user_id: params[:current_user].id)&.id
   end
   attribute :liked do |obj, params|
-    obj.likes.pluck(:user_id).include?(params[:current_user].id)
+    obj.likes.pluck(:user_id).include?(params[:current_user]&.id)
   end
 
   belongs_to :suggestable, polymorphic: true
