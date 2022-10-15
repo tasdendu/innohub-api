@@ -10,6 +10,6 @@ class UserMailer < Devise::Mailer
   private
 
   def set_logo
-    attachments.inline['logo.png'] = Rails.public_path.join('logo.png').read
+    attachments.inline['logo.jpeg'] = Rails.public_path.join('logo.jpeg').read
   end
 end
