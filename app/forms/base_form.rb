@@ -25,7 +25,7 @@ class BaseForm
     Notification.create(
       title: attr[:title],
       text: attr[:text],
-      url: root_url.concat(attr[:path]),
+      url: attr[:path],
       user_ids: attr[:recipient_ids]
     )
   end

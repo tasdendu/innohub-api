@@ -31,7 +31,7 @@ class PostForm < BaseForm
     {
       title: post.user.profile_photo_url,
       text: "<strong>#{post.user.name}</strong> has posted <strong>#{post.title}</strong>",
-      path: "posts/#{post.id}",
+      path: "/posts/#{post.id}",
       recipient_ids: [post.user_id]
     }
   end

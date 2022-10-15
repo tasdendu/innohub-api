@@ -28,7 +28,7 @@ class CommentForm < BaseForm
       title: comment.user.profile_photo_url,
       text: "<strong>#{comment.user.name}</strong> has commented on <strong>#{comment.commentable.user.name}" \
             "</strong>'s #{comment.commentable_type.downcase} '#{comment.commentable.try(:body)}'",
-      path: "#{comment.commentable_type.downcase.pluralize}/#{comment.commentable_id}",
+      path: "/#{comment.commentable_type.downcase.pluralize}/#{comment.commentable_id}",
       recipient_ids: [comment.commentable.user_id]
     }
   end

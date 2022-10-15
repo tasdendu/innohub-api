@@ -24,7 +24,7 @@ class OpinionForm < BaseForm
       title: opinion.user.profile_photo_url,
       text: "<strong>#{opinion.user.name}</strong> has selected <strong>#{opinion.option.text}" \
             '</strong>',
-      path: "posts/#{opinion.option.post_id}",
+      path: "/posts/#{opinion.option.post_id}",
       recipient_ids: [opinion.option.post.user_id]
     }
   end
