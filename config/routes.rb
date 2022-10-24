@@ -64,7 +64,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
       resources :profiles, concerns: :imageable
       resources :roles
-      resources :users, concerns: [:followable, :followingable], shallow: true do
+      resources :users, concerns: [:followable, :followingable, :clipable], shallow: true do
         resources :groups, only: :index
         collection do
           get :profile

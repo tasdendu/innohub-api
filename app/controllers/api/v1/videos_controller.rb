@@ -3,7 +3,11 @@
 module Api
   module V1
     class VideosController < ApplicationController
+      include ActiveStorage::Streaming
+      # include ActiveStorage::SetBlob
+
       before_action :assign_params, only: %i[create update]
+      skip_before_action :authenticate_user!
 
       def create
         create_video_form(video_form)
@@ -11,6 +15,12 @@ module Api
 
       def update
         update_video_form(video_form)
+      end
+
+      def show
+        http_cache_forever(public: true) do
+          send_blob_stream video_form.send(:video).clip, disposition: params[:disposition]
+        end
       end
 
       def destroy

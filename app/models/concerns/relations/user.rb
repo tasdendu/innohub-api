@@ -19,7 +19,10 @@ module Relations
       has_many :followings, as: :followingable, dependent: :destroy
       has_many :groups, inverse_of: :user, dependent: :destroy
       has_many :reports, inverse_of: :user, dependent: :destroy
-
+      has_many :videos, as: :clipable, dependent: :destroy
+      has_many :chat_subscribers, as: :subscriber, class_name: '::ChatEngine::ChatSubscriber'
+      has_many :chats, through: :chat_subscribers, class_name: '::ChatEngine::Chat'
+      has_many :messages, as: :sender, class_name: '::ChatEngine::Message'
       accepts_nested_attributes_for(
         :profile, :setting, :profile_photo, :cover_photo,
         update_only: true
