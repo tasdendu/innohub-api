@@ -3,6 +3,7 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   root to: 'welcome#index'
+  get 'api/v1/welcome', to: 'welcome#index'
 
   scope 'api/v1' do
     devise_for(
